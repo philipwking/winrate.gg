@@ -9,13 +9,13 @@ mongoose.connect(
 );
 
 const summonerSeed = {
-  "id": "qTXju_8AW--N1-KAafuvUi3LfyLx118KXWdhdDXxHShgH6Q",
-  "accountId": "x9EwsK2OePVDVzfpWnB6KVD1D5T1qUcDeC8Jj-HR18tzZtM",
-  "puuid": "Tg9zZ-f_R0SzYoXr91mEdC8bew61YR3n0e9y6Q7_RCCpeQE_KzvD4rZBLWcDRop7guoVdhT1vN9N4A",
-  "name": "HerbSkywalker",
-  "profileIconId": 23,
-  "revisionDate": 1583484928000,
-  "summonerLevel": 188
+  id: "qTXju_8AW--N1-KAafuvUi3LfyLx118KXWdhdDXxHShgH6Q",
+  accountId: "x9EwsK2OePVDVzfpWnB6KVD1D5T1qUcDeC8Jj-HR18tzZtM",
+  puuid: "Tg9zZ-f_R0SzYoXr91mEdC8bew61YR3n0e9y6Q7_RCCpeQE_KzvD4rZBLWcDRop7guoVdhT1vN9N4A",
+  name: "HerbSkywalker",
+  profileIconId: 23,
+  revisionDate: 1583484928000,
+  summonerLevel: 188
 };
 
 const matchesSeed = {
@@ -2795,3 +2795,5 @@ db.Summoner
     console.error(err);
     process.exit(1);
   });
+
+  // do for other 2
