@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const summonerSchema = new Schema({
+const summonersSchema = new Schema({
   id: { type: String, required: true },
   accountId: { type: String, required: true },
   puuid: { type: String, required: true },
@@ -11,6 +11,6 @@ const summonerSchema = new Schema({
   summonerLevel: { type: Number, required: true }
 });
 
-const Summoner = mongoose.model("Summoner", summonerSchema);
+const Summoners = mongoose.model("Summoners", summonersSchema);
 
-module.exports = Summoner;
+module.exports = Summoners;
