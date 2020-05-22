@@ -5,6 +5,9 @@ function Game(props) {
     return (
         <div>
             <div>
+                key: {props.key}
+            </div>
+            <div>
                 Win: {props.win}
             </div>
             <div>
@@ -20,12 +23,6 @@ function Game(props) {
                 Champion: {props.champion}
             </div>
         </div>
-
-
-
-
-
-
     )
 }
 
