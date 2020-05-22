@@ -3,29 +3,11 @@ import React from "react";
 function Game(props) {
     // all info of game into here
     return (
-        <div className="card">
+        <div>
             <div>
-                platformId = {props.platformId}
+                key: {props.key}
             </div>
             <div>
-                champion = {props.champion}
-            </div>
-            <div>
-                queue = {props.champion}
-            </div>
-            <div>
-                season = {props.season}
-            </div>
-            <div>
-                timestamp = {props.timestamp}
-            </div>
-            <div>
-                role = {props.role}
-            </div>
-            <div>
-                lane = {props.lane}
-            </div>
-            {/* <div>
                 Win: {props.win}
             </div>
             <div>
@@ -39,7 +21,7 @@ function Game(props) {
             </div>
             <div>
                 Champion: {props.champion}
-            </div> */}
+            </div>
         </div>
     )
 }
