@@ -1,37 +1,48 @@
 import axios from "axios";
-const api_key = "RGAPI-474206b3-f407-44d3-b9b1-9481fbc224d8"
+const api_key = "RGAPI-e882f331-09fd-433a-b349-914086f3d6c2"
 
 export default {
-  getSummonerId: function (id) {
-    return axios.get("/api/summoners/:"+id);
+  getSummonerId: function (username) {
+    return axios.get("/api/summoners/:" + username).catch(error=>{
+      this.createNewSummoner(username)
+    });
   },
   getMatchlist: function (id) {
-    return axios.get("/api/match/:"+id)
+    return axios.get("/api/match/:" + id)
   },
   getMatchDetails: function (id) {
-    return axios.get("/api/matchDetails/:"+id)
+    return axios.get("/api/matchDetails/:" + id)
   },
-  updateSummonerId: function(id){
-    return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${id}?api_key=${api_key}`)
-      .then((data)=>{
-        axios.update("/api/summoners/:"+id,data)
-        this.updateMatchlist(data.accountId)
+  updateSummonerId: function (username) {
+    return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}?api_key=${api_key}`)
+      .then((data) => {
+        axios.put("/api/summoners/:" + username, data)
+        axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${data.id}?api_key=${api_key}`)
+          .then((data) => {
+            axios.put("/api/match/:" + username, data)
+            data.matches.map((data) => {
+              axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matches/${data.gameId}/?api_key=${api_key}`)
+                .then((data) => {
+                  axios.put("/api/matchDetails/:" + data.gameId, data)
+                });
+            })
+          });
       });
   },
-  updateMatchlist: function(id){
-    return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${id}?api_key=${api_key}`)
-      .then((data)=>{
-        axios.update("/api/match/:"+id,data)
-        data.matches.map((match)=>{
-          this.updateMatchDetails(match.gameId)
-        })
+  createNewSummoner: function (username) {
+    return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}?api_key=${api_key}`)
+      .then((data) => {
+        axios.post("/api/summoners/", data)
+        axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${data.id}?api_key=${api_key}`)
+          .then((data) => {
+            axios.post("/api/match/:" + username, data)
+            data.matches.map((data) => {
+              axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matches/${data.gameId}/?api_key=${api_key}`)
+                .then((data) => {
+                  axios.post("/api/matchDetails/:" + data.gameId, data)
+                });
+            })
+          });
       });
-  },
-  updateMatchDetails: function(id){
-    return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matches/${id}/?api_key=${api_key}`)
-      .then((data)=>{
-        axios.update("/api/matchDetails/:"+id,data)
-      });
-
-  }
+    }
 };

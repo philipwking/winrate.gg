@@ -2779,12 +2779,16 @@ const App = () => {
     ]
   })
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [])
+  //   API.getMatchDetails().then((data)=>{
+  //     setGameDetails({ ...gameDetails, [username]: data })
+  //   })
+  // get match detail when you click on individual match
+  // }, [])
 
   function handleUpdate() { // save into api
-    API.updateSummonerId() // updates all
+    // API.updateSummonerId() // updates all
   }
 
   function handleInputChange(event) {
@@ -2794,16 +2798,13 @@ const App = () => {
 
   function handleFormSubmit(event) { // get data from database
     event.preventDefault();
-    API.getSummonerId().then((username,data)=>{
-      setSummonerData({ ...summonerData, [username]: data })
+    const username = formObject.username;
+      API.getSummonerId(username).then((data) => {
+        setSummonerData({ ...summonerData, [username]: data })
+        API.getMatchlist(username).then((data) => {
+          setGamesArray({ ...gamesData, [username]: data })
+        })
     })
-    API.getMatchlist().then((username,data)=>{
-      setGamesArray({ ...gamesData, [username]: data })
-    })
-    API.getMatchDetails().then((username,data)=>{
-      setGameDetails({ ...gameDetails, [username]: data })
-    })
-
   };
 
   return (
