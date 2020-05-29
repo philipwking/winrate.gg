@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const summonersRoutes = require("./summoners");
-const matchRoutes = require("./match")
+const matchRoutes = require("./matchList")
 const matchDetailsRoutes = require("./matchDetails")
 
 

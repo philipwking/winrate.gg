@@ -1,5 +1,5 @@
 module.exports = {
   Summoners: require("./summoners"),
-  Match: require("./match"),
+  Match: require("./matchList"),
   MatchDetails: require("./matchDetails")
 };
