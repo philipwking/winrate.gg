@@ -2,9 +2,29 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const summonersSchema = new Schema({
-    username: { type: String, required: true },
-    id: { type: String, required: true }
-});
+    "_id": {
+      "type": "String"
+    },
+    "id": {
+      "type": "String"
+    },
+    "accountId": {
+      "type": "String"
+    },
+    "puuid": {
+      "type": "String"
+    },
+    "profileIconId": {
+      "type": "Number"
+    },
+    "revisionDate": {
+      "type": "Number"
+    },
+    "summonerLevel": {
+      "type": "Number"
+    }
+  }
+);
 
 const Summoners = mongoose.model("Summoners", summonersSchema);
 
