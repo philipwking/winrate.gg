@@ -1,0 +1,6 @@
+export const SET_USERNAME = "SET_USERNAME";
+export const SET_USER_DATA = "SET_USER_DATA"
+export const SET_GAMES_LIST = "SET_GAMES_LIST";
+export const UPDATE_GAMES_LIST = "UPDATE_GAMES_LIST"
+export const SET_GAME_DETAILS = "SET_GAME_DETAILS"
+

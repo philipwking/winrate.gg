@@ -1,30 +1,44 @@
 import GameDetails from "./pages/GameDetails"
-import GameSearch from "./pages/GameSearch"
+import Search from "./pages/Search"
 import GamesList from "./pages/GamesList"
 import { Router, Route, Switch } from "react-router-dom"
 import NoMatch from "./pages/NoMatch"
-import React from "react";
-import UserContext from "./utils/UserContext"
+import React, { Component } from "react";
+import { StoreProvider } from "./utils/GlobalState";
+import { createMemoryHistory } from 'history'
 
-const App = () => {
-  return (
-      <Router>
-        <Switch>
-          <Route exact path={"/"}>
-            <GameSearch/>
-          </Route>
-          <Route exact path={"/:username"}>
-            <GamesList/>
-          </Route>
-          <Route exact path={"/:username/:gameId"}>
-            <GameDetails/>
-          </Route>
-          <Route>
-            <NoMatch></NoMatch>
-          </Route>
-        </Switch>
-      </Router>
-    );
+
+const history = createMemoryHistory()
+
+class App extends Component {
+
+  // const [developerState, setDeveloperState] = useState({
+  //   username: "",
+  //   userData: {},
+  //   gamesList: {},
+  //   gameDetails: {}
+  // });
+
+    
+
+
+
+    render() {
+    return(
+      <Router history={history}>
+      <div>
+        <StoreProvider>
+          <Switch>
+            <Route exact path="/" component={Search} />
+            <Route exact path="/Games" component={GamesList} />
+            <Route exact path="/GameDetails" component={GameDetails} />
+            <Route component={NoMatch} />
+          </Switch>
+        </StoreProvider>
+      </div>
+    </Router>
+    )
+  }
 }
 
 

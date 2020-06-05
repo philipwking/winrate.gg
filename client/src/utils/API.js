@@ -2,7 +2,7 @@ import axios from "axios";
 const api_key = "RGAPI-81963466-1ace-4978-88e9-86e9d198f819"
 
 export default {
-  getSummonerId: function (username) {
+  getSummonerData: function (username) {
     return axios.get("/api/summoners/:" + username)
   },
   getMatchlist: function (id) {
@@ -20,7 +20,7 @@ export default {
   riotMatchDetails: function (id) {
     return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matches/${id}/?api_key=${api_key}`)
   },
-  updateSummonerId: function (username, data) {
+  updateSummonerData: function (username, data) {
     return axios.put("/api/summoners/:" + username, data)
   },
   updateMatchList: function (username, data) {

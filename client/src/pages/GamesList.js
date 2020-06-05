@@ -1,39 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, render } from "react";
 import API from "../utils/API";
 import Game from "../components/Game";
-import { Input, FormBtn } from "../components/Form";
-import { Link } from "react-router-dom"
-import UserContext from "../utils/UserContext"
+import { Link, Redirect } from "react-router-dom"
+import {useStoreContext} from "../utils/GlobalState"
+import { SET_GAME_DETAILS, UPDATE_GAMES_LIST } from "../utils/actions";
 
-const GamesList = () => {
-    const [gamesArray, setGamesArray] = useState()
+const GamesList = (props) => {
+    const [state, dispatch] = useStoreContext();
 
-    function handleUpdate() { // save into api
-        // API.riotSummoner(username).then((data) => { // gets data from riot
-        //     API.updateSummonerId(data.id, data) // updates database
-        //     API.riotMatchList(data.id).then((data) => { // uses id to get game list from riot
-        //         API.updateMatchList(username, data) // stores match list
-        //     })
-        // })
+    useEffect(() => {
+        API.getMatchlist(state.userData.id)
+            .then(res => dispatch({ type: SET_GAME_DETAILS, post: res.data }))
+            .catch(err => console.log(err));
+    }, []);
+
+    const getGameDetails = (gameId) => {
+        API.getMatchDetails(gameId).then((data) => {
+            if (!data) {
+                API.riotMatchDetails(gameId).then((data) => {
+                    dispatch({
+                        type: SET_GAME_DETAILS,
+                        post: data
+                    });
+                    API.createMatchDetails(data).then(() => {
+                        return (
+                            <Redirect to="/GameDetails" />
+                        )
+                    })
+                })
+            } else if (data) {
+                dispatch({
+                    type: SET_GAME_DETAILS,
+                    post: data
+                });
+                return (
+                    <Redirect to="/GameDetails" />
+                )
+            }
+        })
+
+    };
+
+    const updateGamesList = () => { 
+        API.riotMatchList(state.username).then((data)=>{
+            API.updateMatchList(data)
+            dispatch({
+                type: UPDATE_GAMES_LIST,
+                post: data
+            })
+        })
     }
 
     return (
-        <UserContext.Provider>
+        <div>
+            <Link to={"/"}>
+                Home
+            </Link>
+            <button onClick={updateGamesList()}>
+                Update
+            </button>
             <ul>
                 {
-                    gamesArray.matches.map((game) => (
+                    state.GamesList.matches.map((game) => (
                         <li>
                             <Game
                                 key={game.gameId}
                             >
-                                <Link to={"/" + UserContext.gameId}>
+                                <button onClick={getGameDetails(game.gameId)}>
                                     Details
-                                 </Link>
+                                </button>
                             </Game>
                         </li>
                     ))}
             </ul>
-        </UserContext.Provider>
+        </div>
 
     )
 }

@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import API from "../utils/API";
 import { Link } from "react-router-dom"
-import UserContext from "../utils/UserContext"
+import {useStoreContext} from "../utils/GlobalState"
 
 function GameDetails(props) {
-    const [gameDetails, setGameDetails] = useState()
+    const [state, dispatch] = useStoreContext();
 
-
-    function updateMatchDetails(id) {
-        // API.riotMatchDetails(id)
-        //     .then((data) => {
-        //         API.updateMatchDetails(id, data)
-        //         setGameDetails(data)
-        //     })
-    }
-
-    // basic game info here
     return (
-        <UserContext.Provider>
-            <Link to={"/" + UserContext.username}>
+        <div>
+            <Link to={"/Games"}>
                 Back to list
             </Link>
-        </UserContext.Provider>
+            <div>
+                <p>Kills</p>
+                <p>Deaths</p>
+                <p>Assists</p>
+                <p>Champion</p>
+                <p>Win?</p>
+            </div>
+        </div>
     )
 }
 
