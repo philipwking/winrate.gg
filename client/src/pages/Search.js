@@ -25,8 +25,7 @@ const Search = () => {
         })
     }
 
-    const setGameslist = (value) => {
-        
+    const setGamesList = (value) => {
         dispatch({
             type: SET_GAMES_LIST,
             post: value
@@ -43,11 +42,6 @@ const Search = () => {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        // check our database for username
-        // if no existing data, call riot api with username
-        // send user data to server
-        // get riot games list with user ID
-        // redirect to GamesList
         var user = state.username.value
         API.getSummonerData(user).then((data) => {
             console.log("checking our database for summoner")
@@ -57,15 +51,32 @@ const Search = () => {
                 console.log("no data, asking riot")
                 API.riotSummoner(user).then((data) => {
                     console.log(data.data)
-                    API.createSummoner(data.data)
-                    setUserData(data.data)
+                    API.createSummoner({
+                        "accountId": data.data.accountId,
+                        "id": data.data.id,
+                        "_id": data.data.name,
+                        "profileIconId": data.data.profileIconId,
+                        "puuid": data.data.puuid,
+                        "revisionDate": data.data.revisionDate,
+                        "summonerLevel": data.data.summonerLevel
+                    })
+                    setUserData({
+                        "accountId": data.data.accountId,
+                        "id": data.data.id,
+                        "_id": user,
+                        "profileIconId": data.data.profileIconId,
+                        "puuid": data.data.puuid,
+                        "revisionDate": data.data.revisionDate,
+                        "summonerLevel": data.data.summonerLevel
+                    })
                     API.riotMatchList(data.data.accountId).then((data) => {
-                        console.log(data)
-                        setGameslist(data.data.matches)
-                        console.log(state.gamesList)
-                        API.createMatchList(data).then(() => {
-                            return (
-                                <Redirect to="/Games" />
+                        setGamesList(data.data.matches)
+                        API.createMatchList({
+                            "_id": user,
+                            "matches": [...data.data.matches]
+                        }).then(() => {
+                            return(
+                                <Redirect push to="/Games" />
                             )
                         })
                     })
@@ -73,13 +84,14 @@ const Search = () => {
             } else { // for returning users with already saved data
                 console.log("already have the data:")
                 console.log(data)
-                API.getMatchList(user).then((data)=>{
+                API.getMatchList(user).then((data) => {
                     console.log("getting match list with username")
                     console.log(data)
-                    setGameslist(data)
+                    setGamesList(data)
                     return (
-                        <Redirect to="/Games" />
+                        <Redirect push to="/Games" />
                     )
+
                 })
 
             }

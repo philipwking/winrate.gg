@@ -1,5 +1,5 @@
 import axios from "axios";
-const api_key = "RGAPI-44d9d8dc-3494-4550-b393-1a605b1723e1"
+const api_key = "RGAPI-e373009a-cfbb-4db0-983a-b355676197b2"
 
 export default {
   getSummonerData: function (username) {
@@ -29,13 +29,13 @@ export default {
   updateMatchDetails: function (id, data) {
     return axios.put("/api/matchDetails/" + id, data)
   },
-  createSummoner: function (username, data) {
-   return axios.post("/api/summoners/" + username, data)
+  createSummoner: function (data) {
+   return axios.post("/api/summoners/", data)
   },
-  createMatchList: function (username, data) {
-   return axios.post("/api/matchList/" + username, data)
+  createMatchList: function (data) {
+   return axios.post("/api/matchList/", data)
   },
-  createMatchDetails: function (id, data) {
-   return axios.post("/api/matchDetails/" + id, data)
+  createMatchDetails: function (data) {
+   return axios.post("/api/matchDetails/", data)
   }
 };
