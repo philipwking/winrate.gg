@@ -11,18 +11,6 @@ import { createMemoryHistory } from 'history'
 const history = createMemoryHistory()
 
 class App extends Component {
-
-  // const [developerState, setDeveloperState] = useState({
-  //   username: "",
-  //   userData: {},
-  //   gamesList: {},
-  //   gameDetails: {}
-  // });
-
-    
-
-
-
     render() {
     return(
       <Router history={history}>

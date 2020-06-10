@@ -2,21 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const matchListSchema = new Schema({
-    "matches": {
-      "type": [
-        "Mixed"
-      ]
-    },
-    "startIndex": {
-      "type": "Number"
-    },
-    "endIndex": {
-      "type": "Number"
-    },
-    "totalGames": {
-      "type": "Number"
-    }
-  });
+  "_id": {
+    "type": "String"
+  },
+  "matches": {
+    "type": [
+      "Mixed"
+    ]
+  }
+});
 
 const MatchList = mongoose.model("MatchList", matchListSchema);
 

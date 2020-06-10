@@ -26,16 +26,20 @@ const Search = () => {
     }
 
     const setGameslist = (value) => {
+        
         dispatch({
             type: SET_GAMES_LIST,
             post: value
         });
     };
 
+
     function handleInputChange(event) {
         const value = event.target;
         setUsername(value)
     };
+
+
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -44,13 +48,21 @@ const Search = () => {
         // send user data to server
         // get riot games list with user ID
         // redirect to GamesList
-        API.getSummonerData(state.username).then((data) => {
-            if (!data) { // if no data on our servers ask riot
-                API.riotSummoner(state.username).then((data) => {
-                    API.createSummoner(data)
-                    setUserData(data)
-                    API.riotMatchList(data.id).then((data) => {
-                        setGameslist(data)
+        var user = state.username.value
+        API.getSummonerData(user).then((data) => {
+            console.log("checking our database for summoner")
+            console.log("data:")
+            console.log(data)
+            if (data.data == null) { // if no data on our servers ask riot
+                console.log("no data, asking riot")
+                API.riotSummoner(user).then((data) => {
+                    console.log(data.data)
+                    API.createSummoner(data.data)
+                    setUserData(data.data)
+                    API.riotMatchList(data.data.accountId).then((data) => {
+                        console.log(data)
+                        setGameslist(data.data.matches)
+                        console.log(state.gamesList)
                         API.createMatchList(data).then(() => {
                             return (
                                 <Redirect to="/Games" />
@@ -58,11 +70,18 @@ const Search = () => {
                         })
                     })
                 })
-            } else if (data) { // for returning users with already saved data
-                setGameslist(data)
-                return (
-                    <Redirect to="/Games" />
-                )
+            } else { // for returning users with already saved data
+                console.log("already have the data:")
+                console.log(data)
+                API.getMatchList(user).then((data)=>{
+                    console.log("getting match list with username")
+                    console.log(data)
+                    setGameslist(data)
+                    return (
+                        <Redirect to="/Games" />
+                    )
+                })
+
             }
         })
     };

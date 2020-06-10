@@ -5,7 +5,7 @@ const matchDetailsRoutes = require("./matchDetails")
 
 
 router.use("/summoners", summonersRoutes);
-router.use("/matchLists", matchRoutes);
+router.use("/matchList", matchRoutes);
 router.use("/matchDetails", matchDetailsRoutes);
 
 module.exports = router;
