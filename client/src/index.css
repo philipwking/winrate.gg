@@ -93,4 +93,9 @@ a,.button{
 div{
     font-family: 'Rubik', sans-serif;
 }
-  
+.win{
+    background-color: lightgreen;
+}
+.loss{
+    background-color: lightcoral;
+}  

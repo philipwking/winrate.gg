@@ -51,6 +51,14 @@ function GameDetails() {
         return user;
     }
 
+    const win = () => {
+        if (mainPlayer.stats.win === "true") {
+            return "win";
+        } else if (mainPlayer.stats.win === "false") {
+            return "loss";
+        }
+    }
+
     useEffect(() => {
         console.log("GAME DETAILS LOADED!")
     }, []);
@@ -64,7 +72,7 @@ function GameDetails() {
             </Link>
             <div>
                 <div>
-                    <div> You ({state.username.value}):
+                    <div className={win()} > You ({state.username.value}):
                         <div>
                             Champion: {findChampion(mainPlayer.championId.toString())}
                         </div>
