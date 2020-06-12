@@ -27,7 +27,24 @@ const GamesList = () => {
             if (data.data == null) {
                 console.log("GETTING MATCH DETAILS FROM RIOT...")
                 API.riotMatchDetails(gameId).then((data) => {
-                    setGameDetails(data.data)
+                    setGameDetails({
+                        "_id": gameId,
+                        "data": {
+                            "gameId": data.data.gameId,
+                            "platformId": data.data.platformId,
+                            "gameCreation": data.data.gameCreation,
+                            "gameDuration": data.data.gameDuration,
+                            "queueId": data.data.queueId,
+                            "mapId": data.data.mapId,
+                            "seasonId": data.data.seasonId,
+                            "gameVersion": data.data.gameVersion,
+                            "gameMode": data.data.gameMode,
+                            "gameType": data.data.gameType,
+                            "teams": [...data.data.teams],
+                            "participants": [...data.data.participants],
+                            "participantIdentities":[...data.data.participantIdentities]
+                          }
+                    })
                     API.createMatchDetails({
                         "_id": gameId,
                         "data": {
