@@ -51,13 +51,6 @@ function GameDetails() {
         return user;
     }
 
-    const win = () => {
-        if (mainPlayer.stats.win === "true") {
-            return "win";
-        } else if (mainPlayer.stats.win === "false") {
-            return "loss";
-        }
-    }
 
     useEffect(() => {
         console.log("GAME DETAILS LOADED!")
@@ -72,7 +65,7 @@ function GameDetails() {
             </Link>
             <div>
                 <div>
-                    <div className={win()} > You ({state.username.value}):
+                    <div className={mainPlayer.stats.win ? "win" : "loss"}> You ({state.username.value}):
                         <div>
                             Champion: {findChampion(mainPlayer.championId.toString())}
                         </div>
@@ -85,9 +78,12 @@ function GameDetails() {
                         <div>
                             Assists: {mainPlayer.stats.assists}
                         </div>
+                        <div>
+                            Win?: {mainPlayer.stats.win.toString()}
+                        </div>
                     </div>
                     <div>
-                        <div>
+                        <div className={mainPlayer.stats.win ? "win" : "loss"}>
                             Your Team
                             <ul>
                                 {
@@ -113,7 +109,7 @@ function GameDetails() {
                                 }
                             </ul>
                         </div>
-                        <div>
+                        <div className={!mainPlayer.stats.win ? "win" : "loss"}>
                             Enemy Team
                             <ul>
                                 {
