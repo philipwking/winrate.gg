@@ -3,17 +3,18 @@ import Search from "./pages/Search"
 import GamesList from "./pages/GamesList"
 import { Router, Route, Switch } from "react-router-dom"
 import NoMatch from "./pages/NoMatch"
-import React, { Component } from "react";
+import React from "react";
 import { StoreProvider } from "./utils/GlobalState";
-import { createMemoryHistory } from 'history'
+import history from "./utils/history"
 
 
-const history = createMemoryHistory()
+const App = () => {
 
-class App extends Component {
-    render() {
-    return(
-      <Router history={history}>
+  // const history = createBrowserHistory();
+  // const history = createMemoryHistory()
+
+  return (
+    <Router history={history}>
       <div>
         <StoreProvider>
           <Switch>
@@ -25,8 +26,8 @@ class App extends Component {
         </StoreProvider>
       </div>
     </Router>
-    )
-  }
+  )
+
 }
 
 

@@ -3,7 +3,7 @@ import {
   SET_USERNAME,
   SET_GAMES_LIST,
   SET_GAME_DETAILS,
-  SET_USER_DATA
+  SET_ACCOUNT_ID
 } from "./actions";
 
 const StoreContext = createContext();
@@ -16,10 +16,10 @@ const reducer = (state, action) => {
         ...state,
         username: action.post
       };
-    case SET_USER_DATA:
+    case SET_ACCOUNT_ID:
       return{
         ...state,
-        userData: action.post
+        accountId: action.post
       }
     case SET_GAMES_LIST:
       return {
@@ -39,7 +39,7 @@ const reducer = (state, action) => {
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
     username: "",
-    userData: {},
+    accountId: "",
     gamesList: {},
     gameDetails: {}
   });
