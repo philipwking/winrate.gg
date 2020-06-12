@@ -4,6 +4,7 @@ import { Input, FormBtn } from "../components/Form";
 import { useStoreContext } from "../utils/GlobalState";
 import { SET_USERNAME, SET_ACCOUNT_ID, SET_GAMES_LIST } from "../utils/actions";
 import history from "../utils/history"
+import NavBar from "../components/NavBar"
 
 const Search = () => {
     const [state, dispatch] = useStoreContext();
@@ -83,18 +84,27 @@ const Search = () => {
     };
 
     return (
-        <form>
-            <Input
-                onChange={handleInputChange}
-                name="username"
-                placeholder="username"
-            />
-            <FormBtn
-                onClick={handleFormSubmit}
-            >
-                Submit
+        <div>
+            <NavBar>
+            </NavBar>
+            <form>
+                <div>
+                    <Input
+                        onChange={handleInputChange}
+                        name="username"
+                        placeholder="Username"
+                    />
+                </div>
+                <div>
+                    <FormBtn
+                        onClick={handleFormSubmit}
+                    >
+                        Submit
                     </FormBtn>
-        </form>
+                </div>
+            </form>
+        </div>
+
     )
 }
 

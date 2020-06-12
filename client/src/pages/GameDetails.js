@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom"
 import { useStoreContext } from "../utils/GlobalState"
 import findChampion from "../utils/champions"
+import NavBar from "../components/NavBar"
 
 function GameDetails() {
     const [state, dispatch] = useStoreContext();
@@ -19,7 +20,7 @@ function GameDetails() {
 
         var i = thisPlayer[0].participantId
 
-        return participants[i-1];
+        return participants[i - 1];
     }
 
     const mainPlayer = findParticipant(state.accountId)
@@ -56,6 +57,8 @@ function GameDetails() {
 
     return (
         <div>
+            <NavBar>
+            </NavBar>
             <Link to={"/Games"}>
                 Back to list
             </Link>

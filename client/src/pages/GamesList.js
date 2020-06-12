@@ -6,6 +6,7 @@ import { SET_GAME_DETAILS, UPDATE_GAMES_LIST } from "../utils/actions";
 import history from "../utils/history"
 import timestamp from "unix-timestamp"
 import findChampion from "../utils/champions"
+import NavBar from "../components/NavBar"
 
 const GamesList = () => {
     const [state, dispatch] = useStoreContext();
@@ -92,10 +93,12 @@ const GamesList = () => {
 
     return (
         <div>
+            <NavBar>
+            </NavBar>
             <Link to={"/"}>
                 Home
             </Link>
-            <button onClick={()=>{updateGamesList()}}>
+            <button className="button" onClick={()=>{updateGamesList()}}>
                 Update
             </button>
             <ul>
@@ -117,7 +120,7 @@ const GamesList = () => {
                             <div>
                                 Lane:{game.lane}
                             </div>
-                            <button onClick={()=>{getGameDetails(game.gameId)}}>
+                            <button className="button" onClick={()=>{getGameDetails(game.gameId)}}>
                                 Details
                             </button>
                         </li>
