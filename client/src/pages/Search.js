@@ -1,10 +1,11 @@
 import React from "react";
 import API from "../utils/API";
-import { Input, FormBtn } from "../components/Form";
 import { useStoreContext } from "../utils/GlobalState";
 import { SET_USERNAME, SET_ACCOUNT_ID, SET_GAMES_LIST } from "../utils/actions";
 import history from "../utils/history"
 import NavBar from "../components/NavBar"
+import Button from "@material-ui/core/Button"
+import { TextField, FormControl } from "@material-ui/core";
 
 const Search = () => {
     const [state, dispatch] = useStoreContext();
@@ -87,22 +88,21 @@ const Search = () => {
         <div>
             <NavBar>
             </NavBar>
-            <form>
-                <div>
-                    <Input
-                        onChange={handleInputChange}
-                        name="username"
-                        placeholder="Username"
-                    />
-                </div>
-                <div>
-                    <FormBtn
-                        onClick={handleFormSubmit}
-                    >
-                        Submit
-                    </FormBtn>
-                </div>
-            </form>
+            <FormControl fullWidth>
+                <TextField 
+                    id="filled-basic"
+                    justify="center"
+                    onChange={handleInputChange}
+                    name="username"
+                    placeholder="Username"
+                />
+                <Button 
+                    variant="outlined" color="primary"
+                    onClick={handleFormSubmit}
+                >
+                    Submit
+                </Button>
+            </FormControl>
         </div>
 
     )

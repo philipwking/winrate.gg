@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import API from "../utils/API";
-import { Link } from "react-router-dom"
 import { useStoreContext } from "../utils/GlobalState"
 import { SET_GAME_DETAILS, UPDATE_GAMES_LIST } from "../utils/actions";
 import history from "../utils/history"
 import timestamp from "unix-timestamp"
 import findChampion from "../utils/champions"
 import NavBar from "../components/NavBar"
+import Button from "@material-ui/core/Button"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import List from "@material-ui/core/List"
+import Divider from "@material-ui/core/Divider"
 
 const GamesList = () => {
     const [state, dispatch] = useStoreContext();
@@ -43,8 +47,8 @@ const GamesList = () => {
                             "gameType": data.data.gameType,
                             "teams": [...data.data.teams],
                             "participants": [...data.data.participants],
-                            "participantIdentities":[...data.data.participantIdentities]
-                          }
+                            "participantIdentities": [...data.data.participantIdentities]
+                        }
                     })
                     API.createMatchDetails({
                         "_id": gameId,
@@ -61,8 +65,8 @@ const GamesList = () => {
                             "gameType": data.data.gameType,
                             "teams": [...data.data.teams],
                             "participants": [...data.data.participants],
-                            "participantIdentities":[...data.data.participantIdentities]
-                          }
+                            "participantIdentities": [...data.data.participantIdentities]
+                        }
                     }).then(() => {
                         console.log("DATA RECIEVED - SAVING AND REDIRECTING...")
                         history.push("/GameDetails");
@@ -79,7 +83,7 @@ const GamesList = () => {
     const updateGamesList = () => {
         console.log("UPDATING GAMES LIST...")
         API.riotMatchList(state.accountId).then((data) => {
-            API.updateMatchList(state.username.value,{
+            API.updateMatchList(state.username.value, {
                 "_id": state.username.value,
                 "matches:": [...data.data.matches]
             })
@@ -95,39 +99,50 @@ const GamesList = () => {
         <div>
             <NavBar>
             </NavBar>
-            <Link to={"/"}>
-                Home
-            </Link>
-            <button className="button" onClick={()=>{updateGamesList()}}>
+            <Button xs={6} variant="outlined" color="primary" onClick={() => { updateGamesList() }}>
                 Update
-            </button>
-            <ul>
+            </Button>
+
+
+            <List>
                 {
                     state.gamesList.map((game) => (
-                        <li key={game.gameId}>
-                            <div>
-                                Game ID:{game.gameId}
-                            </div>
-                            <div>
-                                Champion:{findChampion(game.champion.toString())}
-                            </div>
-                            <div>
-                                Time: {timestamp.toDate(game.timestamp).toString()}
-                            </div>
-                            <div>
-                                Role:{game.role}
-                            </div>
-                            <div>
-                                Lane:{game.lane}
-                            </div>
-                            <button className="button" onClick={()=>{getGameDetails(game.gameId)}}>
-                                Details
-                            </button>
-                        </li>
+                        <div>
+                            <ListItem key={game.gameId}>
+                                <List>
+                                    <ListItem>
+                                        <ListItemText>
+                                            Champion:{findChampion(game.champion.toString())}
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            Time: {timestamp.toDate(game.timestamp).toString()}
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            Role:{game.role}
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText>
+                                            Lane:{game.lane}
+                                        </ListItemText>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Button variant="outlined" color="primary" onClick={() => { getGameDetails(game.gameId) }}>
+                                            Details
+                                    </Button>
+                                    </ListItem>
+                                </List>
+                            </ListItem>
+                            <Divider>
+                            </Divider>
+                        </div>
                     ))}
-            </ul>
+            </List>
         </div>
-
     )
 }
 
