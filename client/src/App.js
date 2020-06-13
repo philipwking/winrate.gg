@@ -6,25 +6,21 @@ import NoMatch from "./pages/NoMatch"
 import React from "react";
 import { StoreProvider } from "./utils/GlobalState";
 import history from "./utils/history"
-
+import { Container } from "@material-ui/core"
 
 const App = () => {
-
-  // const history = createBrowserHistory();
-  // const history = createMemoryHistory()
-
   return (
     <Router history={history}>
-      <div>
-        <StoreProvider>
-          <Switch>
-            <Route exact path="/" component={Search} />
-            <Route exact path="/Games" component={GamesList} />
-            <Route exact path="/GameDetails" component={GameDetails} />
-            <Route component={NoMatch} />
-          </Switch>
-        </StoreProvider>
-      </div>
+      <Container maxwidth="sm">
+          <StoreProvider>
+            <Switch>
+              <Route exact path="/" component={Search} />
+              <Route exact path="/Games" component={GamesList} />
+              <Route exact path="/GameDetails" component={GameDetails} />
+              <Route component={NoMatch} />
+            </Switch>
+          </StoreProvider>
+      </Container>
     </Router>
   )
 

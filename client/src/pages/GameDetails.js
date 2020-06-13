@@ -4,7 +4,10 @@ import { useStoreContext } from "../utils/GlobalState"
 import findChampion from "../utils/champions"
 import NavBar from "../components/NavBar"
 import Chart from "react-apexcharts"
-
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import Grid from "@material-ui/core/Grid"
+import Divider from "@material-ui/core/Divider"
 
 
 function GameDetails() {
@@ -143,8 +146,6 @@ function GameDetails() {
         }
     ]
 
-
-
     useEffect(() => {
         console.log("GAME DETAILS LOADED!")
     }, []);
@@ -153,87 +154,95 @@ function GameDetails() {
         <div>
             <NavBar>
             </NavBar>
+            <Divider>
+            </Divider>
             <Link to={"/Games"}>
                 Back to list
             </Link>
+            <Divider>
+            </Divider>
             <div>
-                <div>
-                    <div className={mainPlayer.stats.win ? "win" : "loss"}> You ({state.username.value}):
-                        <div>
+                <Grid container className={mainPlayer.stats.win ? "win" : "loss"} >
+                    <Grid item xs={3}>
+                        You ({state.username.value})
+                    </Grid>
+                    <Grid container item xs={9}>
+                        <Grid item xs={3}>
                             Champion: {findChampion(mainPlayer.championId.toString())}
-                        </div>
-                        <div>
+                        </Grid>
+                        <Grid item xs={3}>
                             Kills: {mainPlayer.stats.kills}
-                        </div>
-                        <div>
+                        </Grid>
+                        <Grid item xs={3}>
                             Deaths: {mainPlayer.stats.deaths}
-                        </div>
-                        <div>
+                        </Grid>
+                        <Grid item xs={3}>
                             Assists: {mainPlayer.stats.assists}
-                        </div>
-                        <div>
-                            Win?: {mainPlayer.stats.win.toString()}
-                        </div>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <div className={mainPlayer.stats.win ? "win" : "loss"}>
+                    <List> Your Team
+                                {
+                            team1.map((player) => (
+                                <ListItem key={player.participantId}>
+                                    <Grid container item spacing={1}>
+                                        <Grid item xs={3}>
+                                            User : {findUsername(player.participantId)}
+                                        </Grid>
+                                        <Grid container item xs={9}>
+                                            <Grid item xs={3}>
+                                                Champion: {findChampion(player.championId.toString())}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Kills: {player.stats.kills}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Deaths: {player.stats.deaths}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Assists: {player.stats.assists}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </ListItem>
+                            ))
+                        }
+                    </List>
+                    <div id="chart">
+                        <Chart options={options1} series={series1} type="bar" height={350} />
                     </div>
-                    <div>
-                        <div className={mainPlayer.stats.win ? "win" : "loss"}>
-                            Your Team
-                            <ul>
+                </div>
+                <div className={!mainPlayer.stats.win ? "win" : "loss"}>
+                    <List> Enemy Team
                                 {
-                                    team1.map((player) => (
-                                        <li key={player.participantId}>
+                            team2.map((player) => (
+                                <ListItem key={player.participantId}>
+                                    <Grid container item spacing={1}>
+                                        <Grid item xs={3}>
                                             User : {findUsername(player.participantId)}
-                                            <div>
-                                                <div>
-                                                    Champion: {findChampion(player.championId.toString())}
-                                                </div>
-                                                <div>
-                                                    Kills: {player.stats.kills}
-                                                </div>
-                                                <div>
-                                                    Deaths: {player.stats.deaths}
-                                                </div>
-                                                <div>
-                                                    Assists: {player.stats.assists}
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                            <div id="chart">
-                                <Chart options={options1} series={series1} type="bar" height={350} />
-                            </div>
-                        </div>
-                        <div className={!mainPlayer.stats.win ? "win" : "loss"}>
-                            Enemy Team
-                            <ul>
-                                {
-                                    team2.map((player) => (
-                                        <li key={player.participantId}>
-                                            User : {findUsername(player.participantId)}
-                                            <div>
-                                                <div>
-                                                    Champion: {findChampion(player.championId.toString())}
-                                                </div>
-                                                <div>
-                                                    Kills: {player.stats.kills}
-                                                </div>
-                                                <div>
-                                                    Deaths: {player.stats.deaths}
-                                                </div>
-                                                <div>
-                                                    Assists: {player.stats.assists}
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                            <div id="chart">
-                                <Chart options={options2} series={series2} type="bar" height={350} />
-                            </div>
-                        </div>
+                                        </Grid>
+                                        <Grid container item xs={9}>
+                                            <Grid item xs={3}>
+                                                Champion: {findChampion(player.championId.toString())}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Kills: {player.stats.kills}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Deaths: {player.stats.deaths}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Assists: {player.stats.assists}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </ListItem>
+                            ))
+                        }
+                    </List>
+                    <div id="chart">
+                        <Chart options={options2} series={series2} type="bar" height={350} />
                     </div>
                 </div>
             </div>
