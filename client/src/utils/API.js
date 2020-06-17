@@ -1,5 +1,5 @@
 import axios from "axios";
-const api_key = "RGAPI-725ab449-e9cc-440f-bf90-8ac66c018038"
+const api_key = "RGAPI-eaf16502-4fc5-4785-a216-e76b5dea7c69"
 
 export default {
   getSummonerData: function (username) {
