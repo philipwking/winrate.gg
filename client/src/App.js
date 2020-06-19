@@ -7,6 +7,7 @@ import React from "react";
 import { StoreProvider } from "./utils/GlobalState";
 import history from "./utils/history"
 import { Container } from "@material-ui/core"
+import Riot from "../src/pages/Riot"
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
               <Route exact path="/" component={Search} />
               <Route exact path="/Games" component={GamesList} />
               <Route exact path="/GameDetails" component={GameDetails} />
+              <Route exact path="//riot.txt" component={Riot}/>
               <Route component={NoMatch} />
             </Switch>
           </StoreProvider>
