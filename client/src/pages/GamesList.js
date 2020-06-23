@@ -103,45 +103,37 @@ const GamesList = () => {
                 Update
             </Button>
 
+            <table className="table is-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Champion</th>
+                        <th>Time</th>
+                        <th>Role</th>
+                        <th>Lane</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        state.gamesList.map((game,index) => (
 
-            <List>
-                {
-                    state.gamesList.map((game) => (
-                        <div>
-                            <ListItem key={game.gameId}>
-                                <List>
-                                    <ListItem>
-                                        <ListItemText>
-                                            Champion:{findChampion(game.champion.toString())}
-                                        </ListItemText>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText>
-                                            Time: {timestamp.toDate(game.timestamp).toString()}
-                                        </ListItemText>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText>
-                                            Role:{game.role}
-                                        </ListItemText>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText>
-                                            Lane:{game.lane}
-                                        </ListItemText>
-                                    </ListItem>
-                                    <ListItem>
-                                        <Button variant="outlined" color="primary" onClick={() => { getGameDetails(game.gameId) }}>
-                                            Details
-                                    </Button>
-                                    </ListItem>
-                                </List>
-                            </ListItem>
-                            <Divider>
-                            </Divider>
-                        </div>
-                    ))}
-            </List>
+                            <tr key={game.gameId}>
+                                <th> {index} </th>
+                                <td> {findChampion(game.champion.toString())} </td>
+                                <td> {timestamp.toDate(game.timestamp).toString()} </td>
+                                <td> {game.role} </td>
+                                <td>{game.lane} </td>
+                                <td>
+                                    <Button variant="outlined" color="primary" onClick={() => { getGameDetails(game.gameId) }}>
+                                        Details
+                                        </Button>
+                                </td>
+                            </tr>
+
+                        ))}
+                </tbody>
+            </table>
         </div>
     )
 }
