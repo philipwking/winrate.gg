@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACI,wBACJ,CACA,MACI,wBACJ","file":"main.c7bf2990.chunk.css","sourcesContent":[".win{\n    background-color: lightgreen;\n}\n.loss{\n    background-color: lightcoral;\n}"]}
