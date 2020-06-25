@@ -33,8 +33,7 @@ function GameDetails() {
 
     const team1 = participants.filter((participant) => {
         return (
-            participant.teamId === mainPlayer.teamId &&
-            participant.participantId !== mainPlayer.participantId
+            participant.teamId === mainPlayer.teamId
         )
     })
 
@@ -162,85 +161,62 @@ function GameDetails() {
             <Divider>
             </Divider>
             <div>
-                <Grid container className={mainPlayer.stats.win ? "win" : "loss"} >
-                    <Grid item xs={3}>
-                        You ({state.username.value})
-                    </Grid>
-                    <Grid container item xs={9}>
-                        <Grid item xs={3}>
-                            Champion: {findChampion(mainPlayer.championId.toString())}
-                        </Grid>
-                        <Grid item xs={3}>
-                            Kills: {mainPlayer.stats.kills}
-                        </Grid>
-                        <Grid item xs={3}>
-                            Deaths: {mainPlayer.stats.deaths}
-                        </Grid>
-                        <Grid item xs={3}>
-                            Assists: {mainPlayer.stats.assists}
-                        </Grid>
-                    </Grid>
-                </Grid>
                 <div className={mainPlayer.stats.win ? "win" : "loss"}>
-                    <List> Your Team
-                                {
-                            team1.map((player) => (
-                                <ListItem key={player.participantId}>
-                                    <Grid container item spacing={1}>
-                                        <Grid item xs={3}>
-                                            User : {findUsername(player.participantId)}
-                                        </Grid>
-                                        <Grid container item xs={9}>
-                                            <Grid item xs={3}>
-                                                Champion: {findChampion(player.championId.toString())}
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                Kills: {player.stats.kills}
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                Deaths: {player.stats.deaths}
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                Assists: {player.stats.assists}
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </ListItem>
-                            ))
-                        }
-                    </List>
+                    <table className="table is-bordered">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Champion</th>
+                                <th>Kills</th>
+                                <th>Deaths</th>
+                                <th>Assists</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                team1.map((player) => (
+
+                                    <tr key={player.participantId}>
+                                        <th> {findUsername(player.participantId)} </th>
+                                        <td> {findChampion(player.championId.toString())} </td>
+                                        <td> {player.stats.kills} </td>
+                                        <td> {player.stats.deaths} </td>
+                                        <td> {player.stats.assists} </td>
+                                    </tr>
+
+                                ))}
+                        </tbody>
+                    </table>
                     <div id="chart">
                         <Chart options={options1} series={series1} type="bar" height={350} />
                     </div>
                 </div>
                 <div className={!mainPlayer.stats.win ? "win" : "loss"}>
-                    <List> Enemy Team
-                                {
-                            team2.map((player) => (
-                                <ListItem key={player.participantId}>
-                                    <Grid container item spacing={1}>
-                                        <Grid item xs={3}>
-                                            User : {findUsername(player.participantId)}
-                                        </Grid>
-                                        <Grid container item xs={9}>
-                                            <Grid item xs={3}>
-                                                Champion: {findChampion(player.championId.toString())}
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                Kills: {player.stats.kills}
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                Deaths: {player.stats.deaths}
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                Assists: {player.stats.assists}
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </ListItem>
-                            ))
-                        }
-                    </List>
+                    <table className="table is-bordered">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Champion</th>
+                                <th>Kills</th>
+                                <th>Deaths</th>
+                                <th>Assists</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                team2.map((player) => (
+
+                                    <tr key={player.participantId}>
+                                        <th> {findUsername(player.participantId)} </th>
+                                        <td> {findChampion(player.championId.toString())} </td>
+                                        <td> {player.stats.kills} </td>
+                                        <td> {player.stats.deaths} </td>
+                                        <td> {player.stats.assists} </td>
+                                    </tr>
+
+                                ))}
+                        </tbody>
+                    </table>
                     <div id="chart">
                         <Chart options={options2} series={series2} type="bar" height={350} />
                     </div>
