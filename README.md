@@ -1,6 +1,6 @@
 # Winrate.gg
 
-A tool for analyzing your Leage of Legends performance using RIOT api data.
+A tool for analyzing your League of Legends performance using RIOT api data.
 
 ## Deployments
 
