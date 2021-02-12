@@ -14,7 +14,7 @@ app.use(express.static("client/build"));
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/winrategg')
+mongoose.connect('mongodb://pk2:!pk234@192.168.1.200:27017/winrategg')
     .then(() => {
         console.log('Start');
     })
