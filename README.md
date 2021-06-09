@@ -2,12 +2,6 @@
 
 A tool for analyzing your League of Legends performance using RIOT api data.
 
-## Deployments
-
-https://winrate-gg.herokuapp.com/
-
-https://philipwking.vercel.app/Winrate
-
 
 ## Usage
 
