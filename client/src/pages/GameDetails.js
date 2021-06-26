@@ -4,14 +4,14 @@ import { useStoreContext } from "../utils/GlobalState"
 import findChampion from "../utils/champions"
 import NavBar from "../components/NavBar"
 import Chart from "react-apexcharts"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import Grid from "@material-ui/core/Grid"
+// import List from "@material-ui/core/List"
+// import ListItem from "@material-ui/core/ListItem"
+// import Grid from "@material-ui/core/Grid"
 import Divider from "@material-ui/core/Divider"
 
 
 function GameDetails() {
-    const [state, dispatch] = useStoreContext();
+    const [state] = useStoreContext();
 
     const participants = [...state.gameDetails.data.participants]
     const participantIdentities = [...state.gameDetails.data.participantIdentities]

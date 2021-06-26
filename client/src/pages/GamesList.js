@@ -7,10 +7,10 @@ import timestamp from "unix-timestamp"
 import findChampion from "../utils/champions"
 import NavBar from "../components/NavBar"
 import Button from "@material-ui/core/Button"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import List from "@material-ui/core/List"
-import Divider from "@material-ui/core/Divider"
+// import ListItem from "@material-ui/core/ListItem"
+// import ListItemText from "@material-ui/core/ListItemText"
+// import List from "@material-ui/core/List"
+// import Divider from "@material-ui/core/Divider"
 
 const GamesList = () => {
     const [state, dispatch] = useStoreContext();
