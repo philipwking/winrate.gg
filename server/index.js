@@ -1,12 +1,12 @@
 const express = require("express");
 
-const envUser = 'pk2'//process.env.ENV_USER
-const envPass = '!pk234'// process.env.ENV_PASS
 
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+const user = process.env.USER
+const pass = process.env.PASS
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -17,7 +17,7 @@ app.use(express.static("client/build"));
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect('mongodb://pk2:!pk234@192.168.1.200:27017', { useNewUrlParser: true })
+mongoose.connect(`mongodb://75.27.148.77:27017`, { useNewUrlParser: true })
     .then(() => {
         console.log('Start');
     })

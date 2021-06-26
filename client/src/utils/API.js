@@ -1,5 +1,5 @@
 import axios from "axios";
-const api_key = 'RGAPI-d533967e-2f25-4128-9206-a905d6458448'
+const api_key = process.env.API
 
 export default {
   getSummonerData: function (username) {
@@ -12,7 +12,12 @@ export default {
     return axios.get("/api/matchDetails/" + id)
   },
   riotSummoner: function (username) {
-    return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}?api_key=${api_key}`)
+    return axios({
+      method: 'get',
+      url: `https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}/?api_key=${api_key}`,
+      headers: {}
+  })
+
   },
   riotMatchList: function (id) {
     return axios.get(`https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${id}?api_key=${api_key}`)
@@ -30,12 +35,12 @@ export default {
     return axios.put("/api/matchDetails/" + id, data)
   },
   createSummoner: function (data) {
-   return axios.post("/api/summoners/", data)
+    return axios.post("/api/summoners/", data)
   },
   createMatchList: function (data) {
-   return axios.post("/api/matchList/", data)
+    return axios.post("/api/matchList/", data)
   },
   createMatchDetails: function (data) {
-   return axios.post("/api/matchDetails/", data)
+    return axios.post("/api/matchDetails/", data)
   }
 };
